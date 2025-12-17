@@ -25,6 +25,7 @@ let users = [
 // GET request: Retrieve all users
 router.get("/", (req, res) => {
   res.send(users);
+  //Test: curl get 'localhost:5000/user'
 });
 
 // GET by specific ID request: Retrieve a single user with email ID
@@ -95,8 +96,10 @@ router.put("/:email", (req, res) => {
 
 // DELETE request: Delete a user by email ID
 router.delete("/:email", (req, res) => {
-  // Copy the code here
-  res.send("Yet to be implemented"); //This line is to be replaced with actual return value
+  const email = req.params.email;
+  users = users.filter((user) => user.email != email);
+  res.send(`User with the email ${email}`);
+  //Test: curl --request DELETE 'localhost:5000/user/johnsmith@gamil.com'
 });
 
 module.exports = router;
