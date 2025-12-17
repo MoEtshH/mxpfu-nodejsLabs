@@ -38,6 +38,30 @@ router.get("/:email", (req, res) => {
   res.send(filtered_users);
 });
 
+router.get("/lastName/:lastName", (req, res) => {
+  const lastName = req.params.lastName;
+  console.log(lastName);
+  const usersWithSameLastName = users.filter(
+    (user) => user.lastName === lastName
+  );
+  console.log(usersWithSameLastName);
+  res.send(JSON.stringify(usersWithSameLastName, null, 4));
+});
+
+function getDateFromString(dob) {
+  const [dd, mm, yyyy] = dob.split("-");
+  return new Date(yyyy + "/" + mm + "/" + dd);
+}
+
+router.get("/sort/DOB", (req, res) => {
+  let sortedUsersByDOB = users.sort((user1, user2) => {
+    let d1 = getDateFromString(user1.DOB);
+    let d2 = getDateFromString(user2.DOB);
+    return d1 - d2;
+  });
+  res.send(sortedUsersByDOB);
+});
+
 // POST request: Create a new user
 router.post("/", (req, res) => {
   const newUser = {
