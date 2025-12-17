@@ -98,7 +98,7 @@ router.put("/:email", (req, res) => {
 router.delete("/:email", (req, res) => {
   const email = req.params.email;
   users = users.filter((user) => user.email != email);
-  res.send(`User with the email ${email}`);
+  res.send(`User with the email ${email} has been deleted`);
   //Test: curl --request DELETE 'localhost:5000/user/johnsmith@gamil.com'
 });
 
